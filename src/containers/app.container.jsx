@@ -31,12 +31,10 @@ class AppContainer extends Component {
             localStorage.setItem('userBitrate', newBitrate.toString());
         });
 		
-		// CHANGE
 		ipcRenderer.on('changeFormat', (event, newFormat) => {
             this.setState({format: newFormat});
             localStorage.setItem('userFormat', newFormat);
         });
-		// END CHANGE
 		
         // Signal from main process to show prompt to change the download to folder.
         ipcRenderer.on('promptForChangeDownloadFolder', () => {
@@ -59,13 +57,11 @@ class AppContainer extends Component {
         return new Promise((resolve, reject) => {
             let fullPath = path.join(userProvidedPath, `${title}.mp4`);
 			
-			// CHANGE
 			let videoObject;
 			// Create a reference to the stream of the video being downloaded.
 			// Opt between mp4 or mp3
 			if(this.state.format == 'mp3') videoObject = ytdl(urlLink, {filter: 'audioonly'});
 			else videoObject = ytdl(urlLink, {filter: 'audioandvideo'});
-			// END CHANGE
 
             videoObject.on('progress', (chunkLength, downloaded, total) => {
                 // When the stream emits a progress event, we capture the currently downloaded amount and the total
@@ -147,7 +143,6 @@ class AppContainer extends Component {
             // the full path for the tmp file, the path in which its stored, and the title of the desired output.
             let paths = await this.getVideoAsMp4(id, this.state.userDownloadsFolder, info.title);
 			
-			// CHANGE
 			if(this.state.format == 'mp3'){
 				// Pass the returned paths and info into the function which will convert the mp4 tmp file into
 				// the desired output mp3 file.
@@ -156,7 +151,6 @@ class AppContainer extends Component {
 				// Remove the temp mp4 file.
 				fs.unlinkSync(paths.filePath);
 			}
-			// END CHANGE
             
             // Set the bar to 100% and give the OS about one second to get rid of the temp file.
             await (() => {

@@ -2,8 +2,6 @@ const {app, BrowserWindow, Menu} = require('electron');
 const isDevMode = require('electron-is-dev');
 const path = require('path');
 
-// var opt = 'mp3';
-
 if (isDevMode) {
     require('electron-reload')(__dirname + '/public');
 }
@@ -99,14 +97,12 @@ function createWindow() {
                             label: 'mp4',
                             click: () => {
                                 mainWindow.webContents.send('changeFormat', 'mp4');
-								//opt = 'mp4';
                             }
                         },
                         {
                             label: 'mp3',
                             click: () => {
                                 mainWindow.webContents.send('changeFormat', 'mp3');
-								//opt = 'mp3';
                             }
                         }
                     ]

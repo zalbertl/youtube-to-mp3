@@ -54,7 +54,7 @@ class LinkInput extends Component {
                 />
                 <div className="center">
                     <button className="link__button" onClick={this.startDownload}>
-                        Convert to .mp3
+                        Convert
                     </button>
                 </div>
             </div>
